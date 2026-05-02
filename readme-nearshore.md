@@ -210,7 +210,7 @@ I'm Wesley, based in São Paulo (UTC-3), C1 English, 14+ years leading nearshore
 I specialize in: distributed team delivery, DevSecOps, Data Engineering at scale (80M+ tx/day), and building high-performance teams with DORA metrics.
 
 Would love to explore if there's a fit.
-Full context: https://wesleyzilva.github.io/portfolioNearshoreWesIA/nearshore-proposal
+Full context: https://wesleyzilva.github.io/portfolioNearshoreWesIA/
 
 Best,
 Wesley
@@ -229,7 +229,7 @@ I'm Wesley — IT Manager in São Paulo, UTC-3, C1 English, 14+ years in nearsho
 
 I'm exploring selective engagements for 2026. Thought it might be worth a quick chat if your team is scaling its LATAM delivery capacity.
 
-Portfolio: https://wesleyzilva.github.io/portfolioNearshoreWesIA/nearshore-proposal
+Portfolio: https://wesleyzilva.github.io/portfolioNearshoreWesIA/
 
 Is there someone I should connect with?
 ```
@@ -245,7 +245,7 @@ Brazil-based IT Manager here — UTC-3, C1 English, 14+ years nearshore leadersh
 
 Do you work with LATAM profiles for global IT Manager or Delivery Manager roles?
 
-Happy to share my deck: https://wesleyzilva.github.io/portfolioNearshoreWesIA/nearshore-proposal
+Happy to share my deck: https://wesleyzilva.github.io/portfolioNearshoreWesIA/
 ```
 
 ---
