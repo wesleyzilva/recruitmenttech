@@ -63,13 +63,26 @@
  *     AP = Budget & Cost Awareness
  *     AQ = Strategic Prioritisation
  *
+ *     -- Company & Culture Alignment (10 skills) --
+ *     AR = Trade-off Argumentation
+ *     AS = Security Culture (company-level)
+ *     AT = Business Domain Knowledge
+ *     AU = Regulatory & Compliance Awareness (LGPD / PCI / SOX)
+ *     AV = WOW Delivery
+ *     AW = Culture & Values Embodiment
+ *     AX = Customer Empathy
+ *     AY = Proactive Initiative
+ *     AZ = Data Privacy by Design
+ *     BA = Internal Reputation & Trust
+ *
  *   Output columns (calculated by this script):
- *     AR = score_hard_tec     (avg 1-3)
- *     AS = score_hard_proc    (avg 1-3)
- *     AT = score_soft         (avg 1-3)
- *     AU = score_leadership   (avg 1-3)
- *     AV = score_total        (0-100)
- *     AW = profile
+ *     BB = score_hard_tec     (avg 1-3)
+ *     BC = score_hard_proc    (avg 1-3)
+ *     BD = score_soft         (avg 1-3)
+ *     BE = score_leadership   (avg 1-3)
+ *     BF = score_company      (avg 1-3)
+ *     BG = score_total        (0-100)
+ *     BH = profile
  *
  * SCALE: 1 = Learner | 2 = Practitioner | 3 = Teacher
  */
@@ -95,19 +108,25 @@ const CONFIG = {
   LEADERSHIP_START: 33,
   LEADERSHIP_COUNT: 10,
 
-  // Output columns (start at AR=43)
-  OUT_SCORE_HARD_TEC: 43, // AR
-  OUT_SCORE_HARD_PROC: 44, // AS
-  OUT_SCORE_SOFT: 45, // AT
-  OUT_SCORE_LEADERSHIP: 46, // AU
-  OUT_SCORE_TOTAL: 47, // AV
-  OUT_PERFIL: 48, // AW
+  // Company & Culture Alignment: 10 skills (AR=43 to BA=52)
+  COMPANY_START: 43,
+  COMPANY_COUNT: 10,
+
+  // Output columns (start at BB=53)
+  OUT_SCORE_HARD_TEC: 53, // BB
+  OUT_SCORE_HARD_PROC: 54, // BC
+  OUT_SCORE_SOFT: 55, // BD
+  OUT_SCORE_LEADERSHIP: 56, // BE
+  OUT_SCORE_COMPANY: 57, // BF
+  OUT_SCORE_TOTAL: 58, // BG
+  OUT_PERFIL: 59, // BH
 
   // Category weights (must sum to 1.0)
-  PESO_HARD_TEC: 0.35,
-  PESO_HARD_PROC: 0.25,
-  PESO_SOFT: 0.25,
+  PESO_HARD_TEC: 0.3,
+  PESO_HARD_PROC: 0.2,
+  PESO_SOFT: 0.2,
   PESO_LEADERSHIP: 0.15,
+  PESO_COMPANY: 0.15,
 
   // Profile thresholds (score 0-100)
   JUNIOR_MIN: 20,
@@ -123,7 +142,7 @@ const CONFIG = {
   TL_MENTORIA_MIN: 3, // Mentorship must be 3 (Teacher) for Tech Leader
 
   // Total columns read per row
-  TOTAL_COLS: 52,
+  TOTAL_COLS: 63,
 };
 
 // ─── onEdit trigger — fires when recruiter fills any skill cell ───────────────
@@ -132,16 +151,16 @@ function onEdit(e) {
   const row = e.range.getRow();
   const col = e.range.getColumn();
 
-  // Only process rows below the header and within skill columns (D to AQ = 4 to 43)
+  // Only process rows below the header and within skill columns (D to BA = 4 to 53)
   if (row < 2) return;
-  if (col < 4 || col > 43) return;
+  if (col < 4 || col > 53) return;
 
   const rowData = sheet.getRange(row, 1, 1, CONFIG.TOTAL_COLS).getValues()[0];
 
-  // Only calculate when all 40 skill cells are filled (no empty/zero values)
+  // Only calculate when all 50 skill cells are filled (no empty/zero values)
   const skillCells = rowData.slice(
     CONFIG.HARD_TEC_START,
-    CONFIG.LEADERSHIP_START + CONFIG.LEADERSHIP_COUNT,
+    CONFIG.COMPANY_START + CONFIG.COMPANY_COUNT,
   );
   const allFilled = skillCells.every(
     (v) => v !== "" && v !== null && Number(v) >= 1,
@@ -163,6 +182,9 @@ function onEdit(e) {
   sheet
     .getRange(row, CONFIG.OUT_SCORE_LEADERSHIP + 1)
     .setValue(scores.leadership.toFixed(2));
+  sheet
+    .getRange(row, CONFIG.OUT_SCORE_COMPANY + 1)
+    .setValue(scores.company.toFixed(2));
   sheet
     .getRange(row, CONFIG.OUT_SCORE_TOTAL + 1)
     .setValue(scores.total.toFixed(1));
@@ -195,6 +217,10 @@ function calcularScore(row) {
     CONFIG.LEADERSHIP_START,
     CONFIG.LEADERSHIP_START + CONFIG.LEADERSHIP_COUNT,
   );
+  const companyNotas = row.slice(
+    CONFIG.COMPANY_START,
+    CONFIG.COMPANY_START + CONFIG.COMPANY_COUNT,
+  );
 
   const avg = (arr) =>
     arr.reduce((s, v) => s + (Number(v) || 0), 0) / arr.length;
@@ -203,17 +229,19 @@ function calcularScore(row) {
   const hardProc = avg(hardProcNotas);
   const soft = avg(softNotas);
   const leadership = avg(leaderNotas);
+  const company = avg(companyNotas);
 
   // Normalise to 0-100 (scale max = 3)
   const total =
     ((hardTec * CONFIG.PESO_HARD_TEC +
       hardProc * CONFIG.PESO_HARD_PROC +
       soft * CONFIG.PESO_SOFT +
-      leadership * CONFIG.PESO_LEADERSHIP) /
+      leadership * CONFIG.PESO_LEADERSHIP +
+      company * CONFIG.PESO_COMPANY) /
       3) *
     100;
 
-  return { hardTec, hardProc, soft, leadership, total };
+  return { hardTec, hardProc, soft, leadership, company, total };
 }
 
 // ─── Profile classification ───────────────────────────────────────────────────
@@ -244,12 +272,13 @@ function classificarPerfil(scores, row) {
 // ─── Output column headers ────────────────────────────────────────────────────
 function addOutputHeaders(sheet) {
   [
-    "score_hard_tec",
-    "score_hard_proc",
-    "score_soft",
-    "score_leadership",
-    "score_total",
-    "profile",
+    'score_hard_tec',
+    'score_hard_proc',
+    'score_soft',
+    'score_leadership',
+    'score_company',
+    'score_total',
+    'profile',
   ].forEach((h, i) => {
     sheet.getRange(1, CONFIG.OUT_SCORE_HARD_TEC + 1 + i).setValue(h);
   });
@@ -282,6 +311,9 @@ function recalcularTodos() {
       .getRange(r, CONFIG.OUT_SCORE_LEADERSHIP + 1)
       .setValue(scores.leadership.toFixed(2));
     sheet
+      .getRange(r, CONFIG.OUT_SCORE_COMPANY + 1)
+      .setValue(scores.company.toFixed(2));
+    sheet
       .getRange(r, CONFIG.OUT_SCORE_TOTAL + 1)
       .setValue(scores.total.toFixed(1));
     sheet.getRange(r, CONFIG.OUT_PERFIL + 1).setValue(perfil);
@@ -290,181 +322,5 @@ function recalcularTodos() {
 
   SpreadsheetApp.getUi().alert(
     `Recalculation complete — ${count} candidates processed.`,
-  );
-}
-
-// ─── Configuração de colunas (índice 0 = coluna A) ───────────────────────────
-const CONFIG = {
-  COL_NOME: 1, // B
-  COL_EMAIL: 2, // C
-  COL_FUNCAO: 3, // D
-  COL_NIVEL: 4, // E
-
-  // Hard Técnicas: 8 skills (F=5 até M=12)
-  HARD_TEC_START: 5,
-  HARD_TEC_COUNT: 8,
-
-  // Hard Processo: 6 skills (N=13 até S=18)
-  HARD_PROC_START: 13,
-  HARD_PROC_COUNT: 6,
-
-  // Soft Skills: 8 skills (T=19 até AA=26)
-  SOFT_START: 19,
-  SOFT_COUNT: 8,
-
-  // Colunas de saída (começam em AB=27)
-  OUT_SCORE_HARD_TEC: 27, // AB
-  OUT_SCORE_HARD_PROC: 28, // AC
-  OUT_SCORE_SOFT: 29, // AD
-  OUT_SCORE_TOTAL: 30, // AE
-  OUT_PERFIL: 31, // AF
-
-  // Pesos das categorias (devem somar 1.0)
-  PESO_HARD_TEC: 0.4,
-  PESO_HARD_PROC: 0.3,
-  PESO_SOFT: 0.3,
-
-  // Thresholds de perfil (score 0-100)
-  JUNIOR_MIN: 20,
-  PLENO_MIN: 45,
-  SENIOR_MIN: 65,
-  TL_MIN: 80,
-
-  // Regras adicionais para Senior / Tech Leader (escala 1-3)
-  SENIOR_HARD_TEC_MIN: 2.3, // média hard técnico mínima para Senior
-  TL_SOFT_MIN: 2.5, // média soft mínima para TL
-  TL_MENTORIA_COL: 26, // coluna AA = nota de Mentoria (índice 0)
-  TL_MENTORIA_MIN: 3, // Mentoria = 3 (Ensina) obrigatório para TL
-};
-
-// ─── Trigger principal ────────────────────────────────────────────────────────
-function onFormSubmit(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const lastRow = sheet.getLastRow();
-  const row = sheet.getRange(lastRow, 1, 1, 40).getValues()[0];
-
-  const scores = calcularScore(row);
-  const perfil = classificarPerfil(scores, row);
-
-  // Escreve resultados nas colunas de saída
-  sheet
-    .getRange(lastRow, CONFIG.OUT_SCORE_HARD_TEC + 1)
-    .setValue(scores.hardTec.toFixed(2));
-  sheet
-    .getRange(lastRow, CONFIG.OUT_SCORE_HARD_PROC + 1)
-    .setValue(scores.hardProc.toFixed(2));
-  sheet
-    .getRange(lastRow, CONFIG.OUT_SCORE_SOFT + 1)
-    .setValue(scores.soft.toFixed(2));
-  sheet
-    .getRange(lastRow, CONFIG.OUT_SCORE_TOTAL + 1)
-    .setValue(scores.total.toFixed(1));
-  sheet.getRange(lastRow, CONFIG.OUT_PERFIL + 1).setValue(perfil);
-
-  // Adiciona cabeçalhos se for a primeira resposta
-  if (lastRow === 2) adicionarCabecalhosOutput(sheet);
-}
-
-// ─── Cálculo de score ─────────────────────────────────────────────────────────
-function calcularScore(row) {
-  const hardTecNotas = row.slice(
-    CONFIG.HARD_TEC_START,
-    CONFIG.HARD_TEC_START + CONFIG.HARD_TEC_COUNT,
-  );
-  const hardProcNotas = row.slice(
-    CONFIG.HARD_PROC_START,
-    CONFIG.HARD_PROC_START + CONFIG.HARD_PROC_COUNT,
-  );
-  const softNotas = row.slice(
-    CONFIG.SOFT_START,
-    CONFIG.SOFT_START + CONFIG.SOFT_COUNT,
-  );
-
-  const media = (arr) =>
-    arr.reduce((s, v) => s + (Number(v) || 0), 0) / arr.length;
-
-  const hardTec = media(hardTecNotas);
-  const hardProc = media(hardProcNotas);
-  const soft = media(softNotas);
-
-  // Score total normalizado 0-100 (escala 1-3 → divide por 3)
-  const total =
-    ((hardTec * CONFIG.PESO_HARD_TEC +
-      hardProc * CONFIG.PESO_HARD_PROC +
-      soft * CONFIG.PESO_SOFT) /
-      3) *
-    100;
-
-  return { hardTec, hardProc, soft, total };
-}
-
-// ─── Classificação de perfil ──────────────────────────────────────────────────
-function classificarPerfil(scores, row) {
-  const { total, hardTec, soft } = scores;
-  const notaMentoria = Number(row[CONFIG.TL_MENTORIA_COL]) || 0;
-
-  if (
-    total >= CONFIG.TL_MIN &&
-    soft >= CONFIG.TL_SOFT_MIN &&
-    notaMentoria >= CONFIG.TL_MENTORIA_MIN
-  ) {
-    return "Tech Leader";
-  }
-  if (total >= CONFIG.SENIOR_MIN && hardTec >= CONFIG.SENIOR_HARD_TEC_MIN) {
-    return "Senior";
-  }
-  if (total >= CONFIG.PLENO_MIN) {
-    return "Pleno";
-  }
-  if (total >= CONFIG.JUNIOR_MIN) {
-    return "Junior";
-  }
-  return "Abaixo do perfil minimo";
-}
-
-// ─── Cabeçalhos das colunas de saída ─────────────────────────────────────────
-function adicionarCabecalhosOutput(sheet) {
-  const headers = [
-    "score_hard_tec",
-    "score_hard_proc",
-    "score_soft",
-    "score_total",
-    "perfil_classificado",
-  ];
-  headers.forEach((h, i) => {
-    sheet.getRange(1, CONFIG.OUT_SCORE_HARD_TEC + 1 + i).setValue(h);
-  });
-}
-
-// ─── Utilitário: recalcular todos os candidatos existentes ───────────────────
-// Rode manualmente via Apps Script editor quando precisar reprocessar
-function recalcularTodos() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  const lastRow = sheet.getLastRow();
-
-  for (let r = 2; r <= lastRow; r++) {
-    const row = sheet.getRange(r, 1, 1, 40).getValues()[0];
-    if (!row[CONFIG.COL_NOME]) continue;
-
-    const scores = calcularScore(row);
-    const perfil = classificarPerfil(scores, row);
-
-    sheet
-      .getRange(r, CONFIG.OUT_SCORE_HARD_TEC + 1)
-      .setValue(scores.hardTec.toFixed(2));
-    sheet
-      .getRange(r, CONFIG.OUT_SCORE_HARD_PROC + 1)
-      .setValue(scores.hardProc.toFixed(2));
-    sheet
-      .getRange(r, CONFIG.OUT_SCORE_SOFT + 1)
-      .setValue(scores.soft.toFixed(2));
-    sheet
-      .getRange(r, CONFIG.OUT_SCORE_TOTAL + 1)
-      .setValue(scores.total.toFixed(1));
-    sheet.getRange(r, CONFIG.OUT_PERFIL + 1).setValue(perfil);
-  }
-
-  SpreadsheetApp.getUi().alert(
-    "Recalculo concluido para " + (lastRow - 1) + " candidatos.",
   );
 }

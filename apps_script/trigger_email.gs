@@ -13,7 +13,7 @@ const SCORE_ALERT_MINIMUM = 65; // notify for Senior and above
 
 /**
  * @param {{ nome: string, linkedin: string }} candidate
- * @param {{ hardTec: number, hardProc: number, soft: number, leadership: number, total: number }} scores
+ * @param {{ hardTec: number, hardProc: number, soft: number, leadership: number, company: number, total: number }} scores
  * @param {string} profile
  */
 function notificarRecrutador(candidate, scores, profile) {
@@ -32,6 +32,7 @@ Hard Technical:  ${scores.hardTec.toFixed(2)} / 3
 Hard Process:    ${scores.hardProc.toFixed(2)} / 3
 Soft Skills:     ${scores.soft.toFixed(2)} / 3
 Leadership:      ${scores.leadership.toFixed(2)} / 3
+Company & Culture: ${scores.company.toFixed(2)} / 3
 Total Score:     ${scores.total.toFixed(1)} / 100
 Profile:         ${profile}
 

@@ -13,8 +13,9 @@
  *   13–22 = Hard Process skills   (10)
  *   23–32 = Soft skills            (10)
  *   33–42 = Leadership skills      (10)
- *   43 = score_hard_tec | 44 = score_hard_proc | 45 = score_soft
- *   46 = score_leadership | 47 = score_total   | 48 = profile
+ *   43–52 = Company & Culture skills (10)
+ *   53 = score_hard_tec | 54 = score_hard_proc | 55 = score_soft
+ *   56 = score_leadership | 57 = score_company | 58 = score_total | 59 = profile
  */
 
 function exportCSV() {
@@ -29,22 +30,23 @@ function exportCSV() {
   const COLUNAS_CSV = [
     { header: "full_name", idx: 1 },
     { header: "linkedin_url", idx: 2 },
-    { header: "score_hard_tec", idx: 43 },
-    { header: "score_hard_proc", idx: 44 },
-    { header: "score_soft", idx: 45 },
-    { header: "score_leadership", idx: 46 },
-    { header: "score_total", idx: 47 },
-    { header: "profile", idx: 48 },
+    { header: "score_hard_tec", idx: 53 },
+    { header: "score_hard_proc", idx: 54 },
+    { header: "score_soft", idx: 55 },
+    { header: "score_leadership", idx: 56 },
+    { header: "score_company", idx: 57 },
+    { header: "score_total", idx: 58 },
+    { header: "profile", idx: 59 },
     { header: "scored_date", idx: 0 },
   ];
 
-  // Only rows with a calculated score (col 47 filled)
+  // Only rows with a calculated score (col 58 filled)
   const candidatos = data
     .slice(1)
-    .filter((row) => row[47] !== "" && row[47] !== undefined);
+    .filter((row) => row[58] !== "" && row[58] !== undefined);
 
   // Sort by score_total descending
-  candidatos.sort((a, b) => Number(b[47]) - Number(a[47]));
+  candidatos.sort((a, b) => Number(b[58]) - Number(a[58]));
 
   // Build CSV
   const linhas = [COLUNAS_CSV.map((c) => c.header).join(",")];

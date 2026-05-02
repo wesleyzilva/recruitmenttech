@@ -28,7 +28,7 @@ Evaluate candidates through a structured competency matrix and generate automati
     ↓ fills in
 [Google Form]       ← Full name + LinkedIn URL only
     ↓ auto-saved
-[Google Sheets]     ← Recruiter scores 40 skills manually (1–3) after LinkedIn review
+[Google Sheets]     ← Recruiter scores 50 skills manually (1–3) after LinkedIn review
     ↓ Apps Script trigger (onEdit)
 [Score + Profile]  →  CSV on Google Drive  →  Email to recruiter
 ```
@@ -65,11 +65,11 @@ The form collects **identification only**. Skill assessment is done by the recru
 
 ---
 
-## Competency Matrix — 40 Skills for AI-Ready Squads
+## Competency Matrix — 50 Skills for AI-Ready Squads
 
 > All skills carry equal weight within their category.
 
-### Hard Skills — Technical (10 skills · 35% of total score)
+### Hard Skills — Technical (10 skills · 30% of total score)
 
 | # | Skill | What it means |
 |---|-------|---------------|
@@ -84,7 +84,7 @@ The form collects **identification only**. Skill assessment is done by the recru
 | 9 | **REST / GraphQL API Design** | Designs contracts, versioning, error handling, pagination |
 | 10 | **System Design** | Decompose large systems, trade-off analysis, capacity estimation |
 
-### Hard Skills — Process (10 skills · 25% of total score)
+### Hard Skills — Process (10 skills · 20% of total score)
 
 | # | Skill | What it means |
 |---|-------|---------------|
@@ -99,7 +99,7 @@ The form collects **identification only**. Skill assessment is done by the recru
 | 19 | **Data Modelling** | Normalisation, denormalisation, event sourcing, migration strategies |
 | 20 | **Performance Optimisation** | Profiling, query tuning, caching strategies, load testing |
 
-### Soft Skills (10 skills · 25% of total score)
+### Soft Skills (10 skills · 20% of total score)
 
 | # | Skill | What it means |
 |---|-------|---------------|
@@ -131,18 +131,36 @@ The form collects **identification only**. Skill assessment is done by the recru
 | 39 | **Budget & Cost Awareness** | Understands infrastructure cost models, estimates engineering effort for roadmap planning, optimises team ROI |
 | 40 | **Strategic Prioritisation** | Manages tech debt vs. feature trade-offs effectively, says no with data, maps work to company-wide OKRs |
 
+### Company & Culture Alignment (10 skills · 15% of total score)
+
+> These signals reveal how deeply a candidate internalises the company’s mission, security posture, product domain and culture — the difference between a contractor and a builder.
+
+| # | Skill | What it means |
+|---|-------|---------------|
+| 41 | **Trade-off Argumentation** | Structures and defends technical trade-offs with clear rationale, data and business context; says no constructively and proposes alternatives rather than just objecting |
+| 42 | **Security Culture** | Treats security as a first-class concern across OWASP, PCI, LGPD and threat modelling; raises risks proactively — never waits to be asked |
+| 43 | **Business Domain Knowledge** | Understands the company’s verticals, revenue drivers, key customer pain points and competitive context; maps every technical decision to a business outcome |
+| 44 | **Regulatory & Compliance Awareness** | Knows and correctly applies LGPD, PCI-DSS, SOX and other relevant regulations; designs compliant solutions from inception, not as an afterthought |
+| 45 | **WOW Delivery** | Consistently ships features with exceptional quality, polish and UX attention that exceeds the spec and leaves stakeholders genuinely impressed |
+| 46 | **Culture & Values Embodiment** | Actively lives and amplifies the company’s core values in daily behaviour; visible culture carrier across teams even when no one is watching |
+| 47 | **Customer Empathy** | Deeply understands end-user pain points; advocates for the customer in every technical decision; comfortable speaking directly with users |
+| 48 | **Proactive Initiative** | Spots gaps, risks or opportunities outside their defined scope and moves on them without being asked — no ticket required |
+| 49 | **Data Privacy by Design** | Embeds data minimisation, protection and governance into solutions from the first line of code; never retrofits compliance |
+| 50 | **Internal Reputation & Trust** | Has built genuine credibility with peers, management and cross-functional partners; people naturally seek their input and trust their judgement |
+
 ---
 
 ## Scoring Formula
 
 ```
-Score_Hard_Technical = avg(skills 1–10)  × 0.35
-Score_Hard_Process   = avg(skills 11–20) × 0.25
-Score_Soft           = avg(skills 21–30) × 0.25
+Score_Hard_Technical = avg(skills 1–10)  × 0.30
+Score_Hard_Process   = avg(skills 11–20) × 0.20
+Score_Soft           = avg(skills 21–30) × 0.20
 Score_Leadership     = avg(skills 31–40) × 0.15
+Score_Company        = avg(skills 41–50) × 0.15
 
-Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Leadership) / 3 × 100
-             (max possible: avg 3.0 across all 4 categories → Score 100)
+Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Leadership + Score_Company) / 3 × 100
+             (max possible: avg 3.0 across all 5 categories → Score 100)
 ```
 
 ### Profile Classification
@@ -153,6 +171,8 @@ Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Le
 | Mid-level | 45–64 | — |
 | Senior | 65–79 | Hard Technical avg ≥ 2.3 |
 | Tech Leader | 80–100 | Soft avg ≥ 2.5 AND Leadership avg ≥ 2.0 AND Mentorship = 3 |
+
+> The **Company & Culture** category does not gate any profile threshold — it enriches the total score and surfaces cultural alignment for the recruiter’s qualitative review.
 
 ---
 
@@ -167,12 +187,14 @@ Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Le
 | N–W | Hard Process skills 11–20 |
 | X–AG | Soft skills 21–30 |
 | AH–AQ | Leadership & Organisational Impact skills 31–40 |
-| AR | `score_hard_tec` |
-| AS | `score_hard_proc` |
-| AT | `score_soft` |
-| AU | `score_leadership` |
-| AV | `score_total` |
-| AW | `profile` |
+| AR–BA | Company & Culture Alignment skills 41–50 |
+| BB | `score_hard_tec` |
+| BC | `score_hard_proc` |
+| BD | `score_soft` |
+| BE | `score_leadership` |
+| BF | `score_company` |
+| BG | `score_total` |
+| BH | `profile` |
 
 ---
 
@@ -181,16 +203,16 @@ Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Le
 ### Phase 1 — Google Form
 - [ ] Create form with two fields: Full Name + LinkedIn URL
 - [ ] Link form responses to Google Sheets
-- [ ] Add 40 skill columns (D–AQ) with headers matching the matrix above
+- [ ] Add 50 skill columns (D–BA) with headers matching the matrix above
 
 ### Phase 2 — Recruiter Evaluation Workflow
 - [ ] Recruiter reviews LinkedIn profile
-- [ ] Fills scores 1–3 for each of the 40 skills in the candidate’s row
+- [ ] Fills scores 1–3 for each of the 50 skills in the candidate’s row
 - [ ] Apps Script `onEdit` trigger fires automatically on row completion
 
 ### Phase 3 — Automated Scoring (Apps Script)
 - [ ] `score.gs` calculates score per category and total
-- [ ] Writes `score_hard_tec`, `score_hard_proc`, `score_soft`, `score_leadership`, `score_total`, `profile` to output columns
+- [ ] Writes `score_hard_tec`, `score_hard_proc`, `score_soft`, `score_leadership`, `score_company`, `score_total`, `profile` to output columns
 
 ### Phase 4 — CSV Export
 - [ ] `export_csv.gs` exports all candidates sorted by score descending
@@ -209,8 +231,8 @@ Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Le
 ## CSV Output (column reference)
 
 ```
-name,linkedin,score_hard_tec,score_hard_proc,score_soft,score_leadership,score_total,profile,scored_date
-Wesley Silva,linkedin.com/in/wesleyzilva,2.8,2.5,2.7,2.6,91.3,Tech Leader,2026-05-02
+name,linkedin,score_hard_tec,score_hard_proc,score_soft,score_leadership,score_company,score_total,profile,scored_date
+Wesley Silva,linkedin.com/in/wesleyzilva,2.8,2.5,2.7,2.6,2.9,91.3,Tech Leader,2026-05-02
 ```
 
 ---
@@ -224,4 +246,4 @@ Wesley Silva,linkedin.com/in/wesleyzilva,2.8,2.5,2.7,2.6,91.3,Tech Leader,2026-0
 
 ---
 
-> **Next step:** set up the Google Form (name + LinkedIn only), connect to Sheets, add the 40 skill columns D–AQ, then install `score.gs` with the `onEdit` trigger.
+> **Next step:** set up the Google Form (name + LinkedIn only), connect to Sheets, add the 50 skill columns D–BA, then install `score.gs` with the `onEdit` trigger.
