@@ -10,54 +10,168 @@
 
 > **Primary focus: funded startups and scale-ups with proven investment runway (Series A+).** These companies have budget, move fast, and actively need delivery-oriented IT Managers who can operate globally from UTC-3.
 
-### Tier 1 — Brazilian Fintech Unicorns & Scale-ups (Brazilian HQ, global delivery)
+---
 
-| Company | Funding / Stage | Why fit |
-|---------|----------------|---------|
-| **Nubank** | NYSE: NU — unicorn | Engineering leadership, global squads from BR |
-| **Ebanx** | Series — unicorn | Cross-border payments, needs delivery leads |
-| **Creditas** | Series F ~$550M | Fintech scale-up, distributed teams |
+### Fintech & Payments
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Nubank** | NYSE: NU — unicorn | Global engineering squads led from BR |
+| **Ebanx** | BR — unicorn | Cross-border payments, delivery leads |
+| **Creditas** | BR — Series F ~$550M | Fintech scale-up, distributed teams |
 | **Pismo** | Acquired by Visa | Core banking platform, global clients |
-| **Dock** | Series B+ | Fintech infrastructure, multi-country |
-| **Celcoin** | Series B | Open finance platform, scaling fast |
-| **Matera** | Growth stage | Core banking SaaS, US/EU clients |
-| **VTEX** | NYSE: VTEX — public | Commerce platform, US/EU clients from BR |
-| **Olist** | Unicorn | E-commerce platform, global partnerships |
-| **Loft** | Unicorn | PropTech, Series D+ |
-
-### Tier 2 — Global Scale-ups Actively Hiring LATAM Remote (Series B–D)
-
-| Company | HQ | Why fit |
-|---------|----|---------|
-| **Deel** | US — $12B valuation | HR/payroll platform, engineering leads UTC-3 |
-| **Remote.com** | US — Series C | Remote work infra, hires globally from BR |
-| **Brex** | US — $12B valuation | Fintech, Brazil engineering hub |
-| **Rippling** | US — Series F | HR + IT platform, LATAM expansion |
-| **Pomelo** | LATAM — Series B | Fintech cards infrastructure |
+| **Dock** | BR — Series B+ | Fintech infrastructure, multi-country |
+| **Celcoin** | BR — Series B | Open finance, scaling fast |
+| **Matera** | BR — growth stage | Core banking SaaS, US/EU clients |
+| **dLocal** | NASDAQ | Emerging markets payments, LATAM hubs |
+| **Nuvei** | NASDAQ | Payments, Brazil hub |
 | **Kushki** | LATAM — Series B | Payments infrastructure, multi-country |
-| **Belvo** | LATAM — Series A | Open banking API, distributed team |
-| **Konfio** | Mexico — unicorn | SMB fintech, scaling engineering org |
-| **Nuvei** | NASDAQ — public | Payments, Brazil hub, global delivery |
-| **dLocal** | NASDAQ — public | Emerging markets payments, LATAM hubs |
+| **Pomelo** | LATAM — Series B | Fintech cards infrastructure |
+| **Belvo** | LATAM — Series A | Open banking API |
 
-### Tier 3 — US/EU Tech Companies with LATAM Engineering Presence
+---
 
-| Company | Notes |
-|---------|-------|
-| Cloudflare | Engineering hub expanding in BR |
-| Zendesk | CX platform, nearshore dev teams |
-| HubSpot | CRM, LATAM engineering squad |
-| Twilio | Communications API, hires BR PMs/EMs |
-| PagerDuty | Observability, LATAM presence |
-| HashiCorp | DevOps tooling, distributed engineering |
+### Trade Tech — Trading Robots & Financial Automation
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Anka** | BR — Series A | Algorithmic trading platform for retail investors |
+| **Warren** | BR — Series C | Automated investment platform |
+| **Órama** | BR — growth | Digital investment distributor, automation-heavy |
+| **Clear / XP Inc** | NYSE: XP | Brokerage, heavy fintech engineering |
+| **modalmais** | BR — acquired by XP | Trading platform, engineering org |
+| **TradersClub** | BR — Series B | Social investing + automation |
+| **Alpaca** | US — Series B | API-first brokerage, algo trading infra |
+| **Interactive Brokers (IBKR)** | NASDAQ | Global brokerage, LATAM expansion |
+| **QuantConnect** | US — Series A | Open-source algo trading platform |
+| **Databricks** | US — pre-IPO $43B | Data + AI for quant/financial models |
+
+---
+
+### Health Tech
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Nilo Saúde** | BR — Series B | Digital primary care, distributed squads |
+| **Alice** | BR — Series C ~$127M | Corporate health insurance, tech-first |
+| **Sami** | BR — Series B | Health plan SaaS, engineering-led |
+| **Axur** | BR — Series C | Cyber + health data monitoring |
+| **Hims & Hers** | NYSE | Telehealth, LATAM engineering expansion |
+| **Clipboard Health** | US — Series C | Healthcare marketplace, remote-first |
+| **Sword Health** | US — unicorn | Digital physical therapy, LATAM squads |
+| **Dock Health** | US — Series B | Task management for healthcare teams |
+| **Omada Health** | US — IPO track | Chronic disease digital care |
+
+---
+
+### Customer Service Tech, Self-Service & Autoatendimento
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Zendesk** | US — private (~$10B) | CX platform, nearshore dev teams |
+| **Movidesk** | BR — acquired by Zenvia | CRM/helpdesk, BR engineering |
+| **Zenvia** | NASDAQ: ZVIA | Omnichannel CX, LATAM platform |
+| **Take Blip** | BR — unicorn | Conversational AI, chatbots, CX automation |
+| **Botmaker** | LATAM — Series B | WhatsApp + chatbot automation |
+| **Freshworks** | NASDAQ | CRM + CX, LATAM hiring |
+| **Intercom** | US — Series D | AI-first customer support |
+| **Kustomer** | Acquired by Meta | CX CRM, global delivery |
+| **NICE inContact** | NASDAQ | Contact center tech, nearshore delivery |
+| **Twilio** | NYSE | Communications API, BR PMs/EMs |
+
+---
+
+### Prospecting, Sales Tech & Revenue Automation
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Exact Sales** | BR — Series B | Sales cadence + lead qualification |
+| **Meetime** | BR — growth | Inside sales platform, BR teams |
+| **RD Station** | BR — acquired by Totvs | Marketing automation, large BR engineering |
+| **Ramper** | BR — Series A | Outbound prospecting automation |
+| **Salesforce (BR)** | NYSE | CRM global leader, BR delivery hub |
+| **HubSpot** | NYSE | CRM + sales automation, LATAM squad |
+| **Apollo.io** | US — Series D ~$1.6B | Sales intelligence, global remote |
+| **Outreach** | US — unicorn | Sales engagement platform |
+| **Gong** | US — unicorn $7.5B | Revenue intelligence AI |
+| **Salesloft** | US — unicorn | Sales engagement, LATAM hiring |
+
+---
+
+### Legal Tech & Jurídico
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Jurídico Certo** | BR — Series A | Legal platform for SMBs |
+| **Contraktor** | BR — growth | Contract management, automation |
+| **Docket** | BR — Series B | Legal document search + AI |
+| **Assertiva** | BR — growth | Legal data intelligence |
+| **Clio** | Canada — unicorn | Legal practice management SaaS |
+| **Ironclad** | US — Series D $100M+ | Contract lifecycle management AI |
+| **Veritone** | NASDAQ | AI-powered legal + compliance platform |
+| **Harvey** | US — Series B $100M+ | AI for law firms, engineering-heavy |
+| **EvenUp** | US — Series C | AI for legal demand letters |
+| **Relativity** | US — $3.4B valuation | Legal tech, e-discovery, global teams |
+
+---
+
+### AI Governance & Responsible AI
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Weights & Biases** | US — Series C $200M | MLOps + model monitoring, AI governance |
+| **Arthur AI** | US — Series B | AI monitoring, fairness, explainability |
+| **Fiddler AI** | US — Series C | Model performance + bias monitoring |
+| **Scale AI** | US — $14B valuation | AI data + governance, LATAM hiring |
+| **Patronus AI** | US — Series A | LLM evaluation and compliance |
+| **Credo AI** | US — Series A | AI governance platform |
+| **Holistic AI** | UK — Series A | EU AI Act compliance automation |
+| **Truera** | Acquired by Snowflake | AI quality + trust platform |
+| **DataRobot** | US — Series G $1B+ | AutoML + AI governance, global delivery |
+
+---
+
+### Cybersecurity
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Axur** | BR — Series C | Digital risk monitoring, LATAM leader |
+| **BugHunt** | BR — Series A | Bug bounty platform, BR engineering |
+| **Tempest Security** | BR — acquired by Embratel | Managed security services |
+| **Crowdstrike** | NASDAQ | EDR/XDR, LATAM delivery presence |
+| **SentinelOne** | NYSE | AI-native cybersecurity, remote-first |
+| **Wiz** | US — $12B acquisition by Google | Cloud security, fast-growing teams |
+| **Lacework** | US — unicorn | Cloud + data security |
+| **Orca Security** | US — Series C $550M | Cloud security platform |
+| **Snyk** | US — unicorn $8.6B | Developer-first security, DevSecOps |
+| **GitGuardian** | France — Series B | Secrets detection, DevSecOps |
+
+---
+
+### Product Sustentação & SRE / Platform Engineering
+
+| Company | HQ / Stage | Why fit |
+|---------|-----------|---------|
+| **Instana (IBM)** | US/DE | APM + AIOps, product sustentação |
+| **PagerDuty** | NYSE | Incident management, LATAM expansion |
+| **Grafana Labs** | US — unicorn $6B | Observability platform, remote squads |
+| **Datadog** | NASDAQ | Monitoring + sustentação at scale |
+| **Honeycomb** | US — Series D | Observability for distributed systems |
+| **Chronosphere** | US — Series C | Cloud-native monitoring |
+| **Cortex** | US — Series B | Internal developer portal, platform eng |
+| **OpsLevel** | US — Series B | Service catalog + software sustentação |
+| **Backstage (Spotify)** | Open source / Roadie SaaS | Developer portal, platform sustentação |
+
+---
 
 ### Where to Find Funded Startups
 
-- [Crunchbase](https://crunchbase.com) — filter: Brazil, Series A+, fintech/SaaS
-- [Strartse](https://startse.com) — Brazilian startup ecosystem map
-- [Distrito](https://distrito.me) — BR startup intelligence
+- [Crunchbase](https://crunchbase.com) — filter: Brazil, Series A+, fintech/SaaS/security
+- [StartSe](https://startse.com) — Brazilian startup ecosystem map
+- [Distrito](https://distrito.me) — BR startup intelligence + funding radar
 - [Wellfound](https://wellfound.com) — remote roles at funded startups
 - [arc.dev](https://arc.dev) — vetted nearshore engineering roles
+- [Y Combinator](https://ycombinator.com/companies) — filter by domain + hiring
 
 ---
 
