@@ -248,3 +248,33 @@ Wesley Silva,linkedin.com/in/wesleyzilva,2.8,2.5,2.7,2.6,2.9,91.3,Tech Leader,20
 ---
 
 > **Next step:** set up the Google Form (name + LinkedIn only), connect to Sheets, add the 50 skill columns D–BA, then install `score.gs` with the `onEdit` trigger.
+
+---
+
+## Git — Run, Commit & Push (wesleyzilva account)
+
+```bash
+# 1. Navigate to the repo
+cd /c/repositorio/repositorio_particular/recruitmentTech
+
+# 2. Check remote
+git remote -v
+# Expected:
+# origin  https://github.com/wesleyzilva/recruitmenttech.git (fetch)
+# origin  https://github.com/wesleyzilva/recruitmenttech.git (push)
+
+# 3. If remote is wrong, fix it:
+git remote set-url origin https://wesleyzilva@github.com/wesleyzilva/recruitmenttech.git
+
+# 4. Stage all changes
+git add .
+
+# 5. Commit
+git commit -m "feat: describe your change here"
+
+# 6. Push to main
+git push origin main
+```
+
+> Credentials: use a GitHub Personal Access Token (not password).
+> Generate at: https://github.com/settings/tokens → repo scope → copy and use as password when prompted.
