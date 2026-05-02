@@ -134,12 +134,15 @@ const CONFIG = {
   SENIOR_MIN: 65,
   TL_MIN: 80,
 
-  // Additional rules for Senior / Tech Leader (scale 1-3)
+  // Additional rules for Senior / Tech Leader / Coach (scale 1-3)
   SENIOR_HARD_TEC_MIN: 2.3, // minimum avg hard technical for Senior
   TL_SOFT_MIN: 2.5, // minimum avg soft for Tech Leader
   TL_LEADERSHIP_MIN: 2.0, // minimum avg leadership for Tech Leader
-  TL_MENTORIA_COL: 29, // AD = Mentorship column (0-based, within soft block)
+  TL_MENTORIA_COL: 29, // AD = Mentorship column (0-based) — Tech Leader gate
   TL_MENTORIA_MIN: 3, // Mentorship must be 3 (Teacher) for Tech Leader
+  COACH_LEADERSHIP_MIN: 2.5, // minimum avg leadership for Coach (people-focused, higher bar)
+  COACH_PEOPLE_COL: 34, // AK = People Development column (0-based, skill #34)
+  COACH_PEOPLE_MIN: 3, // People Development must be 3 (Teacher) for Coach
 
   // Total columns read per row
   TOTAL_COLS: 63,
@@ -248,7 +251,9 @@ function calcularScore(row) {
 function classificarPerfil(scores, row) {
   const { total, hardTec, soft, leadership } = scores;
   const mentorship = Number(row[CONFIG.TL_MENTORIA_COL]) || 0;
+  const peopleDev = Number(row[CONFIG.COACH_PEOPLE_COL]) || 0;
 
+  // Tech Leader: technical-focused senior leader (Mentorship = 3, balanced leadership)
   if (
     total >= CONFIG.TL_MIN &&
     soft >= CONFIG.TL_SOFT_MIN &&
@@ -257,6 +262,16 @@ function classificarPerfil(scores, row) {
   ) {
     return "Tech Leader";
   }
+
+  // Coach: people-focused senior leader (People Development = 3, strong leadership avg)
+  if (
+    total >= CONFIG.TL_MIN &&
+    leadership >= CONFIG.COACH_LEADERSHIP_MIN &&
+    peopleDev >= CONFIG.COACH_PEOPLE_MIN
+  ) {
+    return "Coach";
+  }
+
   if (total >= CONFIG.SENIOR_MIN && hardTec >= CONFIG.SENIOR_HARD_TEC_MIN) {
     return "Senior";
   }
@@ -272,13 +287,13 @@ function classificarPerfil(scores, row) {
 // ─── Output column headers ────────────────────────────────────────────────────
 function addOutputHeaders(sheet) {
   [
-    'score_hard_tec',
-    'score_hard_proc',
-    'score_soft',
-    'score_leadership',
-    'score_company',
-    'score_total',
-    'profile',
+    "score_hard_tec",
+    "score_hard_proc",
+    "score_soft",
+    "score_leadership",
+    "score_company",
+    "score_total",
+    "profile",
   ].forEach((h, i) => {
     sheet.getRange(1, CONFIG.OUT_SCORE_HARD_TEC + 1 + i).setValue(h);
   });

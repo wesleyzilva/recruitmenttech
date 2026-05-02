@@ -8,7 +8,7 @@
 
 Evaluate candidates through a structured competency matrix and generate automatically:
 - **Numeric score** per candidate
-- **Profile classification** (Junior / Mid-level / Senior / Tech Leader)
+- **Profile classification** (Junior / Mid-level / Senior / Tech Leader / Coach)
 - **Exportable CSV** with squad ranking
 
 **Proficiency scale (3 levels):**
@@ -171,8 +171,9 @@ Score_Final = (Score_Hard_Technical + Score_Hard_Process + Score_Soft + Score_Le
 | Mid-level | 45–64 | — |
 | Senior | 65–79 | Hard Technical avg ≥ 2.3 |
 | Tech Leader | 80–100 | Soft avg ≥ 2.5 AND Leadership avg ≥ 2.0 AND Mentorship = 3 |
+| Coach | 80–100 | Leadership avg ≥ 2.5 AND People Development = 3 |
 
-> The **Company & Culture** category does not gate any profile threshold — it enriches the total score and surfaces cultural alignment for the recruiter’s qualitative review.
+> **Tech Leader vs Coach:** both require score ≥ 80. **Tech Leader** is gated by technical mentorship (skill #27) and balanced across all dimensions — the engineering multiplier. **Coach** is gated by people development (skill #34) and a stronger leadership average — the people multiplier. A candidate can satisfy both; the classification precedence is Tech Leader first, then Coach.
 
 ---
 
